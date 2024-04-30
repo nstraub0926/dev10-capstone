@@ -2,7 +2,7 @@
 
 ## 1. Problem Statement
 
-> Modern day club management systems are widely utilized by a variety of organizations; however, these systems generally only tackle a succinct and uniform list of requirements (as described by the needs of the club type they are addressing). Rather than resorting to applications with little to no wiggle room, when it comes to expanding upon growing company needs, **CLUB** will tackle and provide a robust  set of features that can be used by any and all constituents.
+> Modern day club management systems are widely utilized by a variety of organizations; however, these systems generally only tackle a succinct and uniform list of requirements (as described by the needs of the type of club they are addressing). Rather than resorting to applications that only apply to a select grouping of organizations, **CLUB** will tackle and provide a robust set of features that can be used across a varietal of clubs (granting members access to events and bookings for multiple organizations, all housed within one application).
 > 
 > CLUB's comprehensive management system will be required to streamline and enhance the administrative operations of a diverse range of clubs, including social clubs, sports clubs, hobby clubs, and more.
 >
@@ -12,10 +12,10 @@
 
 ## 2. Technical Solution
 
-> Create an application to manage adminstrative workflow for clubs of all forms and requirements.
+> Create an application to manage adminstrative workflow for clubs of all forms and use case requirements.
 > 
 > ### Scenario 1
-> A night club is looking to persue a new management avenue, as theirs is moderately unorganized and housed on different sites. This club is interested in promoting it's upcoming events and wishes to know more about how many people are intending on going to each event. This club also has venue & product services that they wish to rent out to   
+> A night club is looking to persue a new management avenue, as theirs is moderately unorganized and housed on different sites. This club is interested in promoting it's upcoming events and wishes to know more about how many people are intending on going to each event. This club also has rentable venues & product services that they wish to sell and book out to their constituents. This club will require their members to have tiers of membership in order to access exclusive offers, private events, and deals on reservations. 
 > 
 > ### Scenario 2
 > A book club is gaining a decent amount of hype and popularity amongst joining members, and the club's meetings are beginning to become scrambled and mismanaged. The book club owner is interested in using our application to solidify discrete times, locations, and lists of attendees for future club meetings. The owner wants users to be able to reserve books for upcoming meetings and needs a platform to check these books out accordingly.
@@ -26,119 +26,64 @@
 ## 3. Glossary
 
 > ### Club
-> An organization based on a shared love of running. Clubs have members. They host runs. Some are informal with infrequent runs. Others are large, have budgets, and charge membership fees.
 > ### Club Member
-> A runner who is formally affiliated with a running club. A runner can be a member of more than one club.
 > ### Club Admin
-> A running club member with an administrator role. They have more privileges in the Group Run application. All admins are members, but not all members are admins.
 > ### Club Event
-> A running event with a specific time, date, and location. A run may also include a route (stretch goal).
-> ### Club Reservation
+> ### Club Booking
 > ### Member Profile
 > ### Member Management
 
 ## 4. High Level Requirement
 
-Briefly describe what each user role/authority can do. (These are user stories.)
-
-### Example
-
+> - Member signup (authenticated).
+> - Member login (authnticated).
+> - Browse for Clubs to join (MEMBER).
+> - View member profile (MEMBER).
+> - View all RSVP'd events (MEMBER).
+> - View all bookings (MEMBER).
+> - CRUD for club members (ADMIN).
+> 
 > - RSVP to an event (MEMBER).
 > - Create an event (ADMIN).
 > - Edit an event (ADMIN).
 > - Cancel an event (ADMIN).
 >
-> - Reserve a utility (MEMBER).
-> - Create a utility booking (ADMIN).
-> - Update a utility booking (ADMIN).
-> - Delete a utility booking (ADMIN).
->
-> - Sign up for a club (authenticated).
-> - Login to a club (authnticated).
-> - Apply for club membership (authenticated).
-> - Approve a membership (ADMIN).
-> - View member profile (MEMBER).
-> - View all RSVP'd events (MEMBER).
-> - View all club members (ADMIN).
+> - Book a utility (MEMBER).
+> - Create a booking (ADMIN).
+> - Update a booking (ADMIN).
+> - Delete a booking (ADMIN).
 
 ## 5. User Stories/Scenarios
 
-Elaborate use stories.
-
-### Example
-
-> ### Create a Run
-> 
-> Create a run that runners can join.
-> 
-> Suggested data:
-> - brief description (e.g. "Saturday run along the river road.")
-> - date and time (must be in the future)
-> - a location (choose a level of difficulty from a single address field to a separately-tracked data entity)
-> - running club identifier (runs are always attached to a club. If a runner belongs to more than one club, they may need to choose)
-> - max participants (`null` for unlimited?)
-> - a route (data from a map integration, if appropriate)
-> 
-> **Precondition**: User must be logged in with the MEMBER or ADMIN role.
-> 
-> **Post-condition**: If the user is a MEMBER, the run is not automatically posted. It must be approved by an ADMIN. If the user is an ADMIN, they can choose to post it immediately or keep it in a pending status.
-> 
-> ### Edit a Run
-> 
-> Can only edit a run in the future.
-> 
-> **Precondition**: User must be logged in with the MEMBER or ADMIN role. Run datetime must be in the future.
-> 
-> **Post-condition**: If the user is a MEMBER, the run is set to a pending status even if it was initially posted. If the user is an ADMIN, they can choose to post it immediately or keep it in a pending status.
-> 
-> ### Cancel a Run
-> 
-> Can only cancel a run in the future.
-> 
-> **Precondition**: User must be logged in with the ADMIN role. Run datetime must be in the future.
-> 
-> **Post-condition**: Data is not deleted. The run is set to a canceled status and is no longer visible in the public UI. It *is* visible to the admin.
-> 
-> ### Approve a Run
-> 
-> Through an administrative UI, the ADMIN user finds pending runs for their club. They can choose to: post directly, edit and post, or cancel.
-> 
-> **Precondition**: User must be logged in with the ADMIN role.
-> 
-> **Post-condition**: None
-> 
-> ### Browse Runs
-> 
-> Decide how to display runs to anyone who uses the application.
-> 
-> - Text-based: Users filter by date and location. Display results as HTML with action UI to sign up.
-> - Calendar-based: Users page through a calendar UI. Limit by location or manage the UI so there's not 200 runs on a single day.
-> - Map-based: Users navigate to different locations to see future runs as pins on the map.
-> 
-> **Precondition**: None
-> 
-> **Post-condition**: None
-> 
-> ### Sign Up for a Run
-> 
-> Once a runner finds a run they're interested in, they can sign up.
-> 
-> **Precondition**: User must be logged in. The run must not be over-capacity. The runner cannot already be registered for the run.
-> 
-> **Post-condition**: Runner is registered for the run.
-> 
-> ### Apply for Membership (Optional)
-> 
-> If a runner enjoys a club's runs, they may wish to join the club. Give them an easy way to apply for membership.
-> 
-> **Precondition**: User must be logged in. The user cannot already be a member of the club.
-> 
-> **Post-condition**: Membership is in a pending status waiting for ADMIN approval.
-> 
-> ### Approve a Membership (Optional)
-> 
-> Through an administrative UI, the ADMIN user finds pending memberships for their club. They can choose to accept or reject the membership application.
-> 
-> **Precondition**: User must be logged in with the ADMIN role.
-> 
-> **Post-condition**: Data is not deleted. The membership is set to a rejected status. This prevents the runner from applying again and again.
+> ### Member signup (authenticated).
+> New users will be directed to the signup page upon accessing the site. They will be asked to create an account and signup using an email and password.
+> ### Member login (authnticated).
+> For returning users, they will be directed to the login page. They will be asked for their email and password to login to the site.
+> ### Browse for Clubs to join
+> A user is brand new to the application and is looking for clubs to join. This view will have a list of available clubs to join and will link said member to the club, giving them access to all events and bookings for that particular club.
+> ### View/update member profile (MEMBER).
+> A member will be able to view and update their member profile with information pertaining to their name, phone number, email, address, membership type, membership status, join date, expiration date, as well as a list of clubs they are currently a part of.
+> ### View all RSVP'd events (MEMBER).
+> A list of all RSVP'd events will populate in the member's profile, giving them access to event details 
+> ### View all bookings (MEMBER).
+> A list of all facility/utility bookings will populate in the member's profile, giving them access to booking details
+> ### CRUD for club members (ADMIN).
+> Admin will be able to manage all club members, giving them the ability to view all current club members, add new members to their organization, update membership status, as well as remove members from their listings.
+>
+> ### RSVP to an event (MEMBER).
+> Once a member is granted club access, they will be able to access a card grid listing of all events being held by their joined organizations. Every event will have an RSVP button which will add this card to their own user profile.
+> ### Create an event (ADMIN).
+> Club admins will be able to create and post new events under their club page, giving all club members access to this information.
+> ### Edit an event (ADMIN).
+> Club admins can update event fields, if changes needed to be made to the date, time, location, etc.
+> ### Cancel an event (ADMIN).
+> In the case of event cancelation, club admins will be able to remove an event posting from their club such that the event is unaccessible from club member views.
+>
+> ### Book a utility (MEMBER).
+> A calendar service will be implemented on this page, where club members will have access to all bookable facilities/utilities (within the wheelhouse of clubs they have joined). These booked services will populate in their profile page for ease of use.
+> ### Create a booking (ADMIN).
+> A club admin will be able to create a booking for a good or service that their club offers. This will populate as a calendar event for their members to view and book.
+> ### Update a booking (ADMIN).
+> If a booking field needs to be updated, these changes will be made to the backend, such that club members will always see the most updated version of the booking at hand.
+> ### Delete a booking (ADMIN).
+> If a booking is not longer available for use, the club admin can remove said booking from the calendar and club members will no longer have the ability to checkout that good or service. This will also update previously made bookings.
