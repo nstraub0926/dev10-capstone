@@ -55,7 +55,7 @@
 
 ## 5. User Stories/Scenarios
 
-> ### Member signup (authenticated)
+> ### Member signup (permitAll)
 > New users will be directed to the signup page upon accessing the site. They will be asked to create an account and signup using an email and password.
 > ### Member login (authnticated)
 > For returning users, they will be directed to the login page. They will be asked for their email and password to login to the site.
