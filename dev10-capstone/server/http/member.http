@@ -1,0 +1,70 @@
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoibWFyZ0Bhb2wuY29tIiwiYXBwX3VzZXJfaWQiOjMsImF1dGhvcml0aWVzIjoiVVNFUiIsImV4cCI6MTcxMzkzNDA1NX0.4ub7rfcrLIz-EUofj6Wxg0wRtD7wAVj1qhKxYZ2qqHQ
+
+###
+
+GET http://localhost:8080/member HTTP/1.1
+Accept: application/json
+
+### 
+
+GET http://localhost:8080/member/2 HTTP/1.1
+Accept: application/json
+
+### 
+
+POST http://localhost:8080/create_account HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "marg@aol.com",
+    "password": "C0c0nut$"
+}
+
+###
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "marg@aol.com",
+    "password": "C0c0nut$"
+}
+
+###
+
+POST http://localhost:8080/member HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Angelina Ballerina",
+    "phone": "515-555-3030",
+    "address": "345 Grove Ave",
+    "membershipStatus": "Active",
+    "membershipType": "Premium",
+    "joinDate": "2020-01-23",
+    "expirationDate": "2022-02-19"
+}
+
+### 
+
+PUT http://localhost:8080/member/2 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "memberId": 2,
+    "name": "Angelina Ballerina",
+    "phone": "222-666-5757",
+    "address": "345 Grove Ave",
+    "membershipStatus": "Inactive",
+    "membershipType": "Premium",
+    "joinDate": "2020-01-23",
+    "expirationDate": "2023-02-19"
+}
+
+###
+
+DELETE http://localhost:8080/member/2 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoibmF0aGFuQHN0cmF1Yi5jb20iLCJhcHBfdXNlcl9pZCI6MSwiYXV0aG9yaXRpZXMiOiJBRE1JTiIsImV4cCI6MTcxMzkzMzQ0N30.ZDQwxibLBI1YbGj5WoUeYWkNKHcThZQE9_MrrJTeIcQ
