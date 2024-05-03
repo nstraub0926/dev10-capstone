@@ -21,18 +21,18 @@ function Profile() {
     const { memberId } = useParams();
 
     useEffect(() => {
-        if(memberId) {
-            fetch(`http://localhost:8080/members/${memberId}`)
-            .then((response) => {
-                if (response.status !== 200) {
-                  return Promise.reject("No member found");
-                }
-                return response.json();
-              })
-              .then((data) => setMember(data))
-              .catch(console.log);
-          }
-        }, [memberId]);
+    if(memberId) {
+        fetch(`http://localhost:8080/members/${memberId}`)
+        .then((response) => {
+            if (response.status !== 200) {
+                return Promise.reject("No member found");
+            }
+            return response.json();
+            })
+            .then((data) => setMember(data))
+            .catch(console.log);
+        }
+    }, [memberId]);
 
     return (
         <div className="box has-text-centered has-background-white">

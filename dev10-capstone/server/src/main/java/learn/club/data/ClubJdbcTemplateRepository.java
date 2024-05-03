@@ -1,5 +1,6 @@
 package learn.club.data;
 
+import learn.club.models.Booking;
 import learn.club.models.Club;
 import learn.club.models.Event;
 import learn.club.models.Member;
@@ -54,6 +55,14 @@ public class ClubJdbcTemplateRepository implements ClubRepository {
                 + " from event "
                 + " where club_id = ?;";
         return jdbcTemplate.query(sql, new EventMapper(), clubId);
+    }
+
+    @Override
+    public List<Booking> findBookingsByClubId(int clubId) {
+        final String sql = "select * "
+                + " from booking "
+                + " where club_id = ?;";
+        return jdbcTemplate.query(sql, new BookingMapper(), clubId);
     }
 
     @Override

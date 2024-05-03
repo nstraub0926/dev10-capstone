@@ -1,5 +1,10 @@
 import { Link } from "react-router-dom";
 
+function convertDate(date) {
+    const d = new Date(date);
+    return d.toDateString();
+}
+
 function MemberTable({ members }) {
     return (
         <table className="table is-fullwidth is-hoverable table-striped">
@@ -25,8 +30,8 @@ function MemberTable({ members }) {
                         <td>{member.address}</td>
                         <td>{member.membershipStatus}</td>
                         <td>{member.membershipType}</td>
-                        <td>{member.joinDate}</td>
-                        <td>{member.expirationDate}</td>
+                        <td>{convertDate(member.joinDate)}</td>
+                        <td>{convertDate(member.expirationDate)}</td>
                         <td>
                             <Link type="button" className="button is-danger is-outlined is-rounded is-small" to={`../member/delete/${member.memberId}`}>Delete</Link>
                             <Link type="button" className="button is-warning is-outlined is-rounded is-small" to={`../member/edit/${member.memberId}`}>Edit</Link>

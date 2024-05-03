@@ -25,11 +25,11 @@ function Nav() {
                 {(isOpen && auth.user) ? (
                     <div className="grid">
                         <>
-                            <NavLink className="navbar-item" to='/bookings'><strong><em>Bookings</em></strong></NavLink>
-                            <NavLink className="navbar-item" to='/events'><strong><em>Events</em></strong></NavLink>
-                            <NavLink className="navbar-item" to='/clubs'><strong><em>Clubs</em></strong></NavLink>
-                            <NavLink className="navbar-item" to='/profile'><strong><em>Profile</em></strong></NavLink>
-                            <NavLink className="navbar-item" to='/login' onClick={() => auth.logout()}><strong><em>Logout</em></strong></NavLink>
+                            <NavLink className="navbar-item" to='/bookings'><strong>Bookings</strong></NavLink>
+                            <NavLink className="navbar-item" to='/events'><strong>Events</strong></NavLink>
+                            <NavLink className="navbar-item" to='/clubs'><strong>Clubs</strong></NavLink>
+                            <NavLink className="navbar-item" to='/profile'><strong>Profile</strong></NavLink>
+                            <NavLink className="navbar-item" to='/login' onClick={() => auth.logout()}><strong>Logout</strong></NavLink>
                         </>
                     </div>
                 ) : (isOpen && !auth.user) ? (
@@ -37,7 +37,7 @@ function Nav() {
                         {["About", "Contact", "SignUp", "Login"].map((link, index) => {
                             return (
                                 <div className="is-centered" key={index}>
-                                    <NavLink to={`/${link.toLowerCase()}`} className="navbar-item" onClick={() => setOpen(false)}><strong><em>{link}</em></strong></NavLink>
+                                    <NavLink to={`/${link.toLowerCase()}`} className="navbar-item" onClick={() => setOpen(false)}><strong>{link}</strong></NavLink>
                                 </div>
                             );
                         })}
@@ -47,25 +47,25 @@ function Nav() {
                     <div className="navbar-end">
                         {auth.user && auth.user.hasRole("USER") ? (
                             <>
-                                <NavLink className="navbar-item" to='/bookings'><strong><em>Bookings</em></strong></NavLink>
-                                <NavLink className="navbar-item" to='/events'><strong><em>Events</em></strong></NavLink>
-                                <NavLink className="navbar-item" to='/clubs'><strong><em>Clubs</em></strong></NavLink>
-                                <NavLink className="navbar-item" to='/profile'><strong><em>Profile</em></strong></NavLink>
-                                <NavLink className="navbar-item" to='/' onClick={() => auth.logout()}><strong><em>Logout</em></strong></NavLink>
+                                <NavLink className="navbar-item" to='/bookings'><strong>BOOKINGS</strong></NavLink>
+                                <NavLink className="navbar-item" to='/events'><strong>EVENTS</strong></NavLink>
+                                <NavLink className="navbar-item" to='/clubs'><strong>CLUBS</strong></NavLink>
+                                <NavLink className="navbar-item" to='/profile'><strong>PROFILE</strong></NavLink>
+                                <NavLink className="navbar-item" to='/' onClick={() => auth.logout()}><strong>LOGOUT</strong></NavLink>
                             </>
                         ) : auth.user && auth.user.hasRole("ADMIN") ? (
                             <>
-                                <NavLink className="navbar-item" to='/admin/bookings'><strong><em>Bookings</em></strong></NavLink>
-                                <NavLink className="navbar-item" to='/admin/events'><strong><em>Events</em></strong></NavLink>
-                                <NavLink className="navbar-item" to='/admin/members'><strong><em>Members</em></strong></NavLink>
-                                <NavLink className="navbar-item" to='/' onClick={() => auth.logout()}><strong><em>Logout</em></strong></NavLink>
+                                <NavLink className="navbar-item" to='/admin/bookings'><strong>BOOKINGS</strong></NavLink>
+                                <NavLink className="navbar-item" to='/admin/events'><strong>EVENTS</strong></NavLink>
+                                <NavLink className="navbar-item" to='/admin/members'><strong>MEMBERS</strong></NavLink>
+                                <NavLink className="navbar-item" to='/' onClick={() => auth.logout()}><strong>LOGOUT</strong></NavLink>
                             </>
                         ) : (
                             <>
-                                <NavLink className="navbar-item" to='/about'><strong><em>About</em></strong></NavLink>
-                                <NavLink className="navbar-item" to='/contact'><strong><em>Contact</em></strong></NavLink>
-                                <NavLink className="navbar-item" to='/signup'><strong><em>Sign Up</em></strong></NavLink>
-                                <NavLink className="navbar-item" to='/login'><strong><em>Login</em></strong></NavLink>
+                                <NavLink className="navbar-item" to='/about'><strong>ABOUT</strong></NavLink>
+                                <NavLink className="navbar-item" to='/contact'><strong>CONTACT</strong></NavLink>
+                                <NavLink className="navbar-item" to='/signup'><strong>SIGN UP</strong></NavLink>
+                                <NavLink className="navbar-item" to='/login'><strong>LOGIN</strong></NavLink>
                             </>
                         )}
                     </div>

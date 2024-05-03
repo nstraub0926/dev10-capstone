@@ -39,7 +39,7 @@ public class MemberJdbcTemplateRepository implements MemberRepository {
     public Member add(Member member) {
         final String sql = "insert into `member` "
                 + "(app_user_id, `name`, phone, address, membership_status, membership_type, join_date, expiration_date) "
-                + "values (?,?,?,?,?,?,?);";
+                + "values (?,?,?,?,?,?,?,?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             var ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

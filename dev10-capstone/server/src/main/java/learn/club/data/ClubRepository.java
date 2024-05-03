@@ -1,5 +1,6 @@
 package learn.club.data;
 
+import learn.club.models.Booking;
 import learn.club.models.Club;
 import learn.club.models.Event;
 import learn.club.models.Member;
@@ -16,6 +17,8 @@ public interface ClubRepository {
     List<Member> findMembersByClubId(int clubId);
 
     List<Event> findEventsByClubId(int clubId);
+
+    List<Booking> findBookingsByClubId(int clubId);
 
     int getClubIdByAppUserId(int appUserId);
 

@@ -2,6 +2,7 @@ package learn.club.controllers;
 
 import learn.club.domain.ClubService;
 import learn.club.domain.Result;
+import learn.club.models.Booking;
 import learn.club.models.Club;
 import learn.club.models.Event;
 import learn.club.models.Member;
@@ -56,6 +57,15 @@ public class ClubController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(events);
+    }
+
+    @GetMapping("/{clubId}/booking")
+    public ResponseEntity<List<Booking>> findBookingsByClubId(@PathVariable int clubId) {
+        List<Booking> bookings = service.findBookingsByClubId(clubId);
+        if (bookings == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(bookings);
     }
 
     @GetMapping("/app_user/{appUserId}")

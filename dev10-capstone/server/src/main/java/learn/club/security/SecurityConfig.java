@@ -36,9 +36,13 @@ public class SecurityConfig {
                 .antMatchers("/refresh_token").authenticated()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/club", "/club/*", "/club/*/member").permitAll()
+                        "/club", "/club/*").permitAll()
+                .antMatchers(HttpMethod.GET,
+                        "/club/*/member").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/club/*/event").permitAll()
+                .antMatchers(HttpMethod.GET,
+                        "/club/*/booking").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/member", "/member/*").permitAll()
                 .antMatchers(HttpMethod.GET,
@@ -48,7 +52,9 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET,
                         "/club/app_user/*").authenticated()
                 .antMatchers(HttpMethod.POST,
-                        "/member").hasAnyAuthority("USER", "ADMIN")
+                        "/member").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,
+                        "/club-member").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.PUT,
                         "/member/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE,

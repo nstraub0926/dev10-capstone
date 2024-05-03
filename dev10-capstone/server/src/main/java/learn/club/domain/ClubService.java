@@ -1,6 +1,7 @@
 package learn.club.domain;
 
 import learn.club.data.ClubRepository;
+import learn.club.models.Booking;
 import learn.club.models.Club;
 import learn.club.models.Event;
 import learn.club.models.Member;
@@ -36,6 +37,8 @@ public class ClubService {
     public List<Member> findMembersByClubId(int clubId) { return repository.findMembersByClubId(clubId); }
 
     public List<Event> findEventsByClubId(int clubId) { return repository.findEventsByClubId(clubId); }
+
+    public List<Booking> findBookingsByClubId(int clubId) { return repository.findBookingsByClubId(clubId); }
 
     public int getClubIdByAppUserId(int appUserId) { return repository.getClubIdByAppUserId(appUserId); }
 

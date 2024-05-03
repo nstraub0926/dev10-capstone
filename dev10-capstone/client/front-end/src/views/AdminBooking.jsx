@@ -1,24 +1,13 @@
 import {useState, useEffect, useContext} from 'react';
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-import MemberForm from '../components/MemberForm';
-import MemberTable from '../components/MemberTable';
+import BookingTable from '../components/BookingTable';
 
-function AdminMember() {
+function AdminBooking() {
 
     const auth = useContext(AuthContext);
 
-    const [members, setMembers] = useState([]);
-    const [clubId, setClubId] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const handleOpen = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleClose = () => {
-        setIsModalOpen(false);
-    };
+    const [bookings, setBookings] = useState([]);
 
     useEffect(() => {
         fetch(`http://localhost:8080/club/app_user/${auth.user.appUserId}`, {
@@ -34,15 +23,14 @@ function AdminMember() {
             return response.text();
           })
           .then(clubId => {
-            fetch(`http://localhost:8080/club/${clubId}/member`)
+            fetch(`http://localhost:8080/club/${clubId}/booking`)
             .then((response) => {
                 if (response.status !== 200) {
-                return Promise.reject("No members found");
+                return Promise.reject("No bookings found");
                 }
                 return response.json();
             })
-            .then(setMembers)
-            .then(() => setClubId(clubId))
+            .then(setBookings)
             .catch(console.log)
             })
           .catch(console.log)
@@ -50,17 +38,16 @@ function AdminMember() {
 
     return (
         <div className="container is-fluid m-5">
-        {isModalOpen && <MemberForm clubId={clubId} handleClose={handleClose} />}
-        <button className="button is-pulled-right mr-5" id="btnAdd" onClick={handleOpen}>Add Member</button>
-        {members.length == 0 ?
+        <Link className="button is-pulled-right mr-5" id="btnAdd" to='/booking/add'>Add Booking</Link>
+        {bookings.length == 0 ?
             <div className="alert alert-warning py-4">
-                No members found.<br />
-                Do you want to add a club member?
+                No bookings found.<br />
+                Do you want to add a club booking?
             </div>
-            : <MemberTable members={members} />}
+            : <BookingTable bookings={bookings} />}
         </div>
         
     );
 }
 
-export default AdminMember;
+export default AdminBooking;
