@@ -8,6 +8,8 @@ import java.util.List;
 public interface ClubMemberRepository {
     List<Member> findMembersByClubId(int clubId);
 
+    int findClubMemberId(int clubId, int memberId);
+
     ClubMember add(ClubMember clubMember);
 
     boolean update(ClubMember clubMember);

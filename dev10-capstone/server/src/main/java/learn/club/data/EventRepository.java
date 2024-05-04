@@ -9,6 +9,8 @@ public interface EventRepository {
 
     List<Event> findEventsByClubId(int clubId);
 
+    Event findById(int eventId);
+
     Event add(Event event);
 
     boolean update(Event event);

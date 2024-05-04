@@ -46,19 +46,35 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET,
                         "/member", "/member/*").permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/club/event/*", "club/event/*/*").permitAll()
+                        "/club-member", "/club-member/*/*").permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/club/booking/*", "club/booking/*/*").permitAll()
+                        "/club/event/*", "/club/event/*/*").permitAll()
+                .antMatchers(HttpMethod.GET,
+                        "/club/booking/*", "/club/booking/*/*").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/club/app_user/*").authenticated()
                 .antMatchers(HttpMethod.POST,
                         "/member").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST,
                         "/club-member").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,
+                        "/club/event").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,
+                        "/club/booking").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.PUT,
-                        "/member/*").hasAnyAuthority("USER", "ADMIN")
+                        "/member/*").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT,
+                        "/club/event/*").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT,
+                        "/club/booking/*").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,
+                        "/club-member/*").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.DELETE,
                         "/member/*").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,
+                        "/club/event/*").hasAnyAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,
+                        "/club/booking/*").hasAnyAuthority("ADMIN")
                 // if we get to this point, let's deny all requests
                 .antMatchers("/**").denyAll()
                 .and()

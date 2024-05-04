@@ -26,6 +26,10 @@ public class ClubMemberService {
         return repository.findMembersByClubId(clubId);
     }
 
+    public int findClubMemberId(int clubId, int memberId) {
+        return repository.findClubMemberId(clubId, memberId);
+    }
+
     public Result<ClubMember> add(ClubMember clubMember) {
         Result<ClubMember> result = validate(clubMember);
         if (result.isSuccess()) {

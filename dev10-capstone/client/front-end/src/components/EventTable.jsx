@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 function convertDate(date) {
     const d = new Date(date);
     return d.toDateString();
@@ -26,7 +24,17 @@ function convertTime(time) {
     return timeValue;
 }
 
-function EventTable({ events }) {
+function EventTable({ setEventId, events, handleOpen, handleDeleteOpen }) {
+    
+    function handleClick(eventId, toggle) {
+        setEventId(eventId);
+        if (toggle) {
+            handleOpen();
+        } else {
+            handleDeleteOpen();
+        }
+    }
+
     return (
         <table className="table is-fullwidth is-hoverable table-striped">
             <thead>
@@ -50,8 +58,8 @@ function EventTable({ events }) {
                         <td>{convertTime(event.endTime)}</td>
                         <td>{event.description}</td>
                         <td>
-                            <Link type="button" className="button is-danger is-outlined is-rounded is-small" to={`../event/delete/${event.eventId}`}>Delete</Link>
-                            <Link type="button" className="button is-warning is-outlined is-rounded is-small" to={`../event/edit/${event.eventId}`}>Edit</Link>
+                            <button type="button" className="button is-danger is-outlined is-rounded is-small" onClick={() => handleClick(event.eventId, false)}>Delete</button>
+                            <button type="button" className="button is-warning is-outlined is-rounded is-small" onClick={() => handleClick(event.eventId, true)}>Edit</button>
                         </td>
                     </tr>
                 ))}

@@ -71,9 +71,9 @@ public class MemberService {
             }
             return result;
         }
-        if (repository.findById(member.getMemberId()) != null) {
-            result.addMessage(ActionStatus.DUPLICATE, "memberId already exists: " + member.getMemberId());
-        }
+//        if (repository.findById(member.getMemberId()) != null ) {
+//            result.addMessage(ActionStatus.DUPLICATE, "memberId already exists: " + member.getMemberId());
+//        }
         return result;
     }
 

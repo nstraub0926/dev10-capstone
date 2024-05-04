@@ -24,6 +24,14 @@ public class ClubMemberJdbcTemplateRepository implements ClubMemberRepository {
     }
 
     @Override
+    public int findClubMemberId(int clubId, int memberId) {
+        final String sql = "select club_member_id "
+                + " from club_member "
+                + " where club_id = ? and member_id = ?;";
+        return jdbcTemplate.queryForObject(sql, Integer.class, clubId, memberId);
+    }
+
+    @Override
     public ClubMember add(ClubMember clubMember) {
         final String sql = "insert into club_member (club_id, member_id) values (?, ?);";
         int rowsAffected = jdbcTemplate.update(sql, clubMember.getClubId(), clubMember.getMemberId());

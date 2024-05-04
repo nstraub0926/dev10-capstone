@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Calendar } from "primereact/calendar";
 import AuthContext from "../context/AuthContext";
 
-function MemberForm({clubId, handleClose}) {
+function MemberForm({memberId, clubId, handleClose}) {
 
     const [member, setMember] = useState({
         appUserId: "",
@@ -17,26 +17,24 @@ function MemberForm({clubId, handleClose}) {
     });
 
     const auth = useContext(AuthContext);
-
-    const { memberId } = useParams();
     
     const [errors, setErrors] = useState([]);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-    if(memberId) {
-        fetch(`http://localhost:8080/members/${memberId}`)
-        .then((response) => {
-            if (response.status !== 200) {
-                return Promise.reject("No member found");
+        if(memberId) {
+            fetch(`http://localhost:8080/member/${memberId}`)
+            .then((response) => {
+                if (response.status !== 200) {
+                    return Promise.reject("No member found");
+                }
+                return response.json();
+                })
+                .then((data) => setMember(data))
+                .catch(console.log);
             }
-            return response.json();
-            })
-            .then((data) => setMember(data))
-            .catch(console.log);
-        }
-    }, [memberId]);
+        }, [memberId]);
 
     function handleChange(evt) {
 
@@ -78,6 +76,7 @@ function MemberForm({clubId, handleClose}) {
                 if (response.status === 201) {  
                     handleClose();
                     navigate("/admin/members");
+                    location.reload();
                     return response.json();
                 }
             })
@@ -93,15 +92,22 @@ function MemberForm({clubId, handleClose}) {
         const init = {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${auth.user.token}`,
             },
             body: JSON.stringify(member)
         }
     
-        const response = await fetch(`${apiUrl}/${member.memberId}`, init);
-        if (response.ok) {
-            return;
-        }
+        await fetch(`http://localhost:8080/member/${member.memberId}`, init)
+        .then((response) => {
+            if (response.status === 204) {
+                handleClose();
+                navigate("/admin/members");
+                location.reload();
+                return response.json();
+            }
+        })
+        .catch(console.log);
     
         const errors = await response.json();
         return Promise.reject(errors);
@@ -122,7 +128,6 @@ function MemberForm({clubId, handleClose}) {
             <div className="modal is-active">
                 <div className="modal-background is-light"></div>
                 <div className="modal-content card has-text-centered">
-                    <header className="modal-card-head title b* is-3">{memberId ? "Edit Member" : "Add Member"}</header>
                     {errors && errors.length > 0 && <div className="alert alert-danger">
                         <ul className="mb-0">
                             {errors.map(err => <li key={err}>{err}</li>)}
@@ -130,29 +135,38 @@ function MemberForm({clubId, handleClose}) {
                     </div>}
                     <section className="modal-card-body">
                         <form onSubmit={handleSubmit}>
+                            <header className="modal-card-head title b* is-3">{memberId ? "Edit Member" : "Add Member"}</header>
                             <div className="columns is-centered m-5">
                                 <input type="hidden" name="memberId" value={member.memberId} />
                                 <div className="field m-1">
                                     <label className="label" htmlFor="appUserId">User ID</label>
-                                    <input id="appUserId" name="appUserId" type="text" className="control" required
-                                        onChange={handleChange} value={member.appUserId} />
+                                    <div className="control">
+                                        <input className="input" id="appUserId" name="appUserId" type="text" required
+                                            onChange={handleChange} value={member.appUserId} />
+                                    </div>
                                 </div>
                                 <div className="field m-1">
                                     <label className="label" htmlFor="name">Name</label>
-                                    <input id="name" name="name" type="text" className="control" required
-                                        onChange={handleChange} value={member.name} />
+                                    <div className="control">
+                                        <input id="name" name="name" type="text" className="input" required
+                                            onChange={handleChange} value={member.name} />
+                                    </div>
                                 </div>
                             </div>
                             <div className="columns is-centered m-5">
                                 <div className="field m-1">
                                     <label className="label" htmlFor="phone">Phone</label>
-                                    <input id="phone" name="phone" type="text" className="control" required
-                                        onChange={handleChange} value={member.phone} />
+                                    <div className="control">
+                                        <input id="phone" name="phone" type="text" className="input" required
+                                            onChange={handleChange} value={member.phone} />
+                                    </div>
                                 </div>
                                 <div className="field m-1">
                                     <label className="label" htmlFor="address">Address</label>
-                                    <input id="address" name="address" type="text" className="control" required
-                                        onChange={handleChange} value={member.address} />
+                                    <div className="control">
+                                        <input id="address" name="address" type="text" className="input" required
+                                            onChange={handleChange} value={member.address} />
+                                    </div>
                                 </div>
                             </div>
                             <div className="columns is-centered">
@@ -160,12 +174,12 @@ function MemberForm({clubId, handleClose}) {
                                     <label className="label" htmlFor="membershipStatus">Membership Status</label>
                                     <label className="radio">
                                     <input id="membershipStatus" name="membershipStatus" type="radio" className="control" required
-                                        onChange={handleChange} value="Active" />
+                                        onChange={handleChange} value="Active" checked={member.membershipStatus === "Active"}/>
                                         Active
                                     </label>
                                     <label className="radio">
                                     <input id="membershipStatus" name="membershipStatus" type="radio" className="control" required
-                                        onChange={handleChange} value="Inactive" />
+                                        onChange={handleChange} value="Inactive" checked={member.membershipStatus === "Inactive"}/>
                                         Inactive
                                     </label>
                                 </div>
@@ -173,11 +187,14 @@ function MemberForm({clubId, handleClose}) {
                             <div className="columns is-centered">
                                 <div className="field m-1">
                                     <label className="label" htmlFor="membershipType">Membership Type</label>
-                                    <select id="membershipType" name="membershipType" className="control" required onChange={handleChange}>
-                                        <option value="Basic">Basic</option>
-                                        <option value="Premium">Premium</option>
-                                        <option value="VIP">VIP</option>
-                                    </select>
+                                    <div className="control">
+                                        <select id="membershipType" name="membershipType" className="select" required 
+                                            onChange={handleChange} value={member.membershipType}>
+                                            <option value="Basic">Basic</option>
+                                            <option value="Premium">Premium</option>
+                                            <option value="VIP">VIP</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div className="columns is-centered">

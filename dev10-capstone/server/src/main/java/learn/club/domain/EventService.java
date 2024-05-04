@@ -25,6 +25,7 @@ public class EventService {
     public List<Event> findEventsByClubId(int clubId) {
         return repository.findEventsByClubId(clubId);
     }
+    public Event findById(int eventId) { return repository.findById(eventId); }
 
     public Result<Event> add(Event event) {
         Result<Event> result = validate(event);

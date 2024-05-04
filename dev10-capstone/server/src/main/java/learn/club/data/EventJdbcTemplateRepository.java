@@ -29,9 +29,17 @@ public class EventJdbcTemplateRepository implements EventRepository {
     }
 
     @Override
+    public Event findById(int eventId) {
+        final String sql = "select event_id, club_id, title, `date`, start_time, end_time, location, description, img_url "
+                + "from `event` "
+                + "where event_id = ?";
+        return jdbcTemplate.query(sql, new EventMapper(), eventId).stream().findFirst().orElse(null);
+    }
+
+    @Override
     public Event add(Event event) {
         final String sql = "insert into `event` (club_id, title, `date`, start_time, end_time, location, description, img_url) "
-                + "values (?, ?, ?, ?, ?, ?, ?, ?";
+                + "values (?, ?, ?, ?, ?, ?, ?, ?)";
         int rowsAffected = jdbcTemplate.update(sql, event.getClubId(), event.getTitle(), event.getDate(), event.getStartTime(),
                 event.getEndTime(), event.getLocation(), event.getDescription(), event.getImgUrl());
 

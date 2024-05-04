@@ -1,13 +1,35 @@
 import {useState, useEffect, useContext} from 'react';
-import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import EventDelete from '../components/EventDelete';
 import EventTable from '../components/EventTable';
+import EventForm from '../components/EventForm';
 
 function AdminEvent() {
 
     const auth = useContext(AuthContext);
 
     const [events, setEvents] = useState([]);
+    const [eventId, setEventId] = useState(null);
+    const [clubId, setClubId] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+    const handleOpen = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleDeleteOpen = () => {
+        setDeleteModalOpen(true);
+    }
+
+    const handleClose = () => {
+        setEventId(null);
+        setIsModalOpen(false);
+    };
+
+    const handleDeleteClose = () => {
+        setDeleteModalOpen(false);
+    }
 
     useEffect(() => {
         fetch(`http://localhost:8080/club/app_user/${auth.user.appUserId}`, {
@@ -31,6 +53,7 @@ function AdminEvent() {
                 return response.json();
             })
             .then(setEvents)
+            .then(() => setClubId(clubId))
             .catch(console.log)
             })
           .catch(console.log)
@@ -38,13 +61,15 @@ function AdminEvent() {
 
     return (
         <div className="container is-fluid m-5">
-        <Link className="button is-pulled-right mr-5" id="btnAdd" to='/event/add'>Add Event</Link>
+        {isModalOpen && <EventForm eventId={eventId} clubId={clubId} handleClose={handleClose} />}
+        {deleteModalOpen && <EventDelete eventId={eventId} clubId={clubId} handleDeleteClose={handleDeleteClose} />}
+        <button className="button is-pulled-right mr-5" id="btnAdd" onClick={handleOpen}>Add Event</button>
         {events.length == 0 ?
             <div className="alert alert-warning py-4">
                 No events found.<br />
                 Do you want to add a club event?
             </div>
-            : <EventTable events={events} />}
+            : <EventTable setEventId={setEventId} events={events} handleOpen={handleOpen} handleDeleteOpen={handleDeleteOpen}/>}
         </div>
         
     );

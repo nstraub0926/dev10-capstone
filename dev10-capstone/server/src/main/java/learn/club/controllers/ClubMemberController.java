@@ -16,6 +16,11 @@ public class ClubMemberController {
 
     public ClubMemberController(ClubMemberService service) { this.service = service; }
 
+    @GetMapping("/{clubId}/{memberId}")
+    public int findClubMemberId(@PathVariable int clubId, @PathVariable int memberId) {
+        return service.findClubMemberId(clubId, memberId);
+    }
+
     @PostMapping
     public ResponseEntity<ClubMember> add(@RequestBody ClubMember clubMember) {
         Result<ClubMember> result = service.add(clubMember);

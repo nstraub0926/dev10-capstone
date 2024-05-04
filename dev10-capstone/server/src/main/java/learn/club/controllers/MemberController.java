@@ -57,7 +57,7 @@ public class MemberController {
     private HttpStatus getStatus(Result<Member> result, HttpStatus statusDefault) {
         return switch (result.getStatus()) {
             case INVALID -> HttpStatus.PRECONDITION_FAILED;
-            case DUPLICATE -> HttpStatus.FORBIDDEN;
+            case DUPLICATE -> HttpStatus.BAD_REQUEST;
             case NOT_FOUND -> HttpStatus.NOT_FOUND;
             default -> statusDefault;
         };

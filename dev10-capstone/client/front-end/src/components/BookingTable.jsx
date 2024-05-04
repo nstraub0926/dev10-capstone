@@ -33,8 +33,8 @@ function BookingTable({ bookings }) {
                 <tr>
                     <th>Vacant/Reserved</th>
                     <th>Facility | Utility</th>
-                    <th>Rented From</th>
-                    <th>Returned By</th>
+                    <th>Rent From</th>
+                    <th>Return By</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>

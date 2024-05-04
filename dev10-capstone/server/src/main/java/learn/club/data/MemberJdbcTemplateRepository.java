@@ -64,7 +64,7 @@ public class MemberJdbcTemplateRepository implements MemberRepository {
 
     @Override
     public boolean update(Member member) {
-        final String sql = "update member set"
+        final String sql = "update `member` set "
                 + "app_user_id = ?,"
                 + "`name` = ?,"
                 + "phone = ?,"
@@ -72,7 +72,7 @@ public class MemberJdbcTemplateRepository implements MemberRepository {
                 + "membership_status = ?,"
                 + "membership_type = ?,"
                 + "join_date = ?,"
-                + "expiration_date = ?"
+                + "expiration_date = ? "
                 + "where member_id = ?;";
         return jdbcTemplate.update(sql,
                 member.getAppUserId(),

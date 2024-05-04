@@ -1,11 +1,19 @@
-import { Link } from "react-router-dom";
-
 function convertDate(date) {
     const d = new Date(date);
     return d.toDateString();
 }
 
-function MemberTable({ members }) {
+function MemberTable({ setMemberId, members, handleOpen, handleDeleteOpen}) {
+    
+    function handleClick(memberId, toggle) {
+        setMemberId(memberId);
+        if (toggle) {
+            handleOpen();
+        } else {
+            handleDeleteOpen();
+        }
+    }
+
     return (
         <table className="table is-fullwidth is-hoverable table-striped">
             <thead>
@@ -33,8 +41,8 @@ function MemberTable({ members }) {
                         <td>{convertDate(member.joinDate)}</td>
                         <td>{convertDate(member.expirationDate)}</td>
                         <td>
-                            <Link type="button" className="button is-danger is-outlined is-rounded is-small" to={`../member/delete/${member.memberId}`}>Delete</Link>
-                            <Link type="button" className="button is-warning is-outlined is-rounded is-small" to={`../member/edit/${member.memberId}`}>Edit</Link>
+                            <button type="button" className="button is-danger is-outlined is-rounded is-small" onClick={() => handleClick(member.memberId, false)}>Delete</button>
+                            <button type="button" className="button is-warning is-outlined is-rounded is-small" onClick={() => handleClick(member.memberId, true)}>Edit</button>
                         </td>
                     </tr>
                 ))}
