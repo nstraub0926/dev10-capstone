@@ -89,7 +89,7 @@ function MemberDelete({memberId, clubId, handleDeleteClose}) {
                         </div>
                         <footer className="modal-card-foot">
                             <p className="card-footer-item">
-                                <span><button className="button" id="btnDelete">Delete</button></span>
+                                <span><button className="button" id="btnDelete" type="submit">Delete</button></span>
                             </p>
                             <p className="card-footer-item">
                                 <span><button className="button" id="btnCancel" onClick={handleDeleteClose}>Cancel</button></span>

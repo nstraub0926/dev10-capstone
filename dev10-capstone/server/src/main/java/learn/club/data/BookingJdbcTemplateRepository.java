@@ -30,11 +30,24 @@ public class BookingJdbcTemplateRepository implements BookingRepository {
     }
 
     @Override
-    public void add(Booking booking) {
+    public Booking findById(int bookingId) {
+        final String sql = "select booking_id, club_id, member_id, facility, `status`, start_date, end_date, start_time, end_time "
+                + "from booking "
+                + "where booking_id = ?";
+        return jdbcTemplate.query(sql, new BookingMapper(), bookingId).stream()
+                .findFirst().orElse(null);
+    }
+
+    @Override
+    public Booking add(Booking booking) {
         final String sql = "insert into booking (club_id, member_id, facility, `status`, start_date, end_date, start_time, end_time) "
                 + "values (?, ?, ?, ?, ?, ?, ?, ?";
-        jdbcTemplate.update(sql, booking.getClubId(), booking.getMemberId(), booking.getFacility(), booking.getStatus(),
+        int rowsAffected = jdbcTemplate.update(sql, booking.getClubId(), booking.getMemberId(), booking.getFacility(), booking.getStatus(),
                 booking.getStartDate(), booking.getEndDate(), booking.getStartTime(), booking.getEndTime());
+        if (rowsAffected <= 0) {
+            return null;
+        }
+        return booking;
     }
 
     @Override

@@ -2,7 +2,7 @@ import "../css/event-card.css";
 
 function convertDate(date) {
     const d = new Date(date);
-    return d.toDateString();
+    return d.toLocaleDateString( "en-US", { timeZone: "UTC" } );
 }
 
 function convertTime(time) {

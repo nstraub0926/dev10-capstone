@@ -9,7 +9,9 @@ public interface BookingRepository {
 
     List<Booking> findBookingsByMemberId(int memberId);
 
-    void add(Booking booking);
+    Booking findById(int bookingId);
+
+    Booking add(Booking booking);
 
     boolean update(Booking booking);
 

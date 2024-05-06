@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 function convertDate(date) {
     const d = new Date(date);
     return d.toDateString();
@@ -26,7 +24,17 @@ function convertTime(time) {
     return timeValue;
 }
 
-function BookingTable({ bookings }) {
+function BookingTable({ setBookingId, bookings, handleOpen, handleDeleteOpen}) {
+
+    function handleClick(bookingId, toggle) {
+        setBookingId(bookingId);
+        if (toggle) {
+            handleOpen();
+        } else {
+            handleDeleteOpen();
+        }
+    }
+
     return (
         <table className="table is-fullwidth is-hoverable table-striped">
             <thead>
@@ -46,8 +54,8 @@ function BookingTable({ bookings }) {
                         <td>{convertTime(booking.startTime)} on {convertDate(booking.startDate)}</td>
                         <td>{convertTime(booking.endTime)} on {convertDate(booking.endDate)}</td>
                         <td>
-                            <Link type="button" className="button is-danger is-outlined is-rounded is-small" to={`../booking/delete/${booking.bookingId}`}>Delete</Link>
-                            <Link type="button" className="button is-warning is-outlined is-rounded is-small" to={`../booking/edit/${booking.bookingId}`}>Edit</Link>
+                            <button type="button" className="button is-danger is-outlined is-rounded is-small" onClick={() => handleClick(booking.bookingId, false)}>Delete</button>
+                            <button type="button" className="button is-warning is-outlined is-rounded is-small" onClick={() => handleClick(booking.bookingId, true)}>Edit</button>
                         </td>
                     </tr>
                 ))}

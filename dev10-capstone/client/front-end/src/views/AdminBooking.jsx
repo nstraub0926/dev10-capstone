@@ -1,6 +1,7 @@
 import {useState, useEffect, useContext} from 'react';
-import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import BookingDelete from '../components/BookingDelete';
+import BookingForm from '../components/BookingForm';
 import BookingTable from '../components/BookingTable';
 
 function AdminBooking() {
@@ -63,7 +64,7 @@ function AdminBooking() {
         <div className="container is-fluid m-5">
         {isModalOpen && <BookingForm bookingId={bookingId} clubId={clubId} handleClose={handleClose} />}
         {deleteModalOpen && <BookingDelete bookingId={bookingId} clubId={clubId} handleDeleteClose={handleDeleteClose} />}
-        <Link className="button is-pulled-right mr-5" id="btnAdd" to='/booking/add'>Add Booking</Link>
+        <button className="button is-pulled-right mr-5" id="btnAdd" onClick={handleOpen}>Add booking</button>
         {bookings.length == 0 ?
             <div className="alert alert-warning py-4">
                 No bookings found.<br />

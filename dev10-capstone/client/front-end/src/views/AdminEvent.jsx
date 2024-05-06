@@ -1,8 +1,8 @@
 import {useState, useEffect, useContext} from 'react';
 import AuthContext from "../context/AuthContext";
 import EventDelete from '../components/EventDelete';
-import EventTable from '../components/EventTable';
 import EventForm from '../components/EventForm';
+import EventTable from '../components/EventTable';
 
 function AdminEvent() {
 
