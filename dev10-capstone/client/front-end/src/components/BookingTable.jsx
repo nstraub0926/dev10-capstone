@@ -1,6 +1,6 @@
 function convertDate(date) {
     const d = new Date(date);
-    return d.toDateString();
+    return d.toLocaleDateString( "en-US", { timeZone: "UTC" } );
 }
 
 function convertTime(time) {
@@ -51,8 +51,8 @@ function BookingTable({ setBookingId, bookings, handleOpen, handleDeleteOpen}) {
                     <tr key={booking.bookingId}>
                         <td>{booking.status === "1" ? "Reserved" : "Vacant"}</td>
                         <td>{booking.facility}</td>
-                        <td>{convertTime(booking.startTime)} on {convertDate(booking.startDate)}</td>
-                        <td>{convertTime(booking.endTime)} on {convertDate(booking.endDate)}</td>
+                        <td>{convertDate(booking.startDate)}, ({convertTime(booking.startTime)}) </td>
+                        <td>{convertDate(booking.endDate)}, ({convertTime(booking.endTime)}) </td>
                         <td>
                             <button type="button" className="button is-danger is-outlined is-rounded is-small" onClick={() => handleClick(booking.bookingId, false)}>Delete</button>
                             <button type="button" className="button is-warning is-outlined is-rounded is-small" onClick={() => handleClick(booking.bookingId, true)}>Edit</button>

@@ -46,13 +46,15 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET,
                         "/member", "/member/*").permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/club-member", "/club-member/*/*").permitAll()
+                        "/club-member", "/club-member/*", "/club-member/*/*").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/club/event/*", "/club/event/*/*").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/club/booking/*", "/club/booking/*/*").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/club/app_user/*").authenticated()
+                .antMatchers(HttpMethod.POST,
+                        "/club").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST,
                         "/member").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST,

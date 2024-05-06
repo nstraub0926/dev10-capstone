@@ -1,6 +1,7 @@
 package learn.club.domain;
 
 import learn.club.data.ClubMemberRepository;
+import learn.club.models.Club;
 import learn.club.models.ClubMember;
 import learn.club.models.Member;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class ClubMemberService {
     public List<Member> findMembersByClubId(int clubId) {
         return repository.findMembersByClubId(clubId);
     }
+
+    public List<Club> findClubsByMemberId(int memberId) { return repository.findClubsByMemberId(memberId); }
 
     public int findClubMemberId(int clubId, int memberId) {
         return repository.findClubMemberId(clubId, memberId);

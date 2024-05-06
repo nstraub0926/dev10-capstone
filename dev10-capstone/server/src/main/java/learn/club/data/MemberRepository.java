@@ -7,7 +7,7 @@ import java.util.List;
 public interface MemberRepository {
     List<Member> findAll();
 
-    Member findById(int memberId);
+    Member findById(int appUserId);
 
     Member add(Member member);
 

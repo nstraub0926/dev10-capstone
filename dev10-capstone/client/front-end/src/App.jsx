@@ -83,7 +83,7 @@ function App() {
           <Route path="/clubs" element={<Club />} />
           <Route path="/events" element={<Event />} />
           <Route path="/bookings" element={<Booking />} />
-          <Route path="/admin/clubs" element={<AdminClub />} />
+          <Route path="/admin/club" element={<AdminClub />} />
           <Route path="/admin/members" element={<AdminMember />} />
           <Route path="/admin/events" element={<AdminEvent />} />
           <Route path="/admin/bookings" element={<AdminBooking />} />

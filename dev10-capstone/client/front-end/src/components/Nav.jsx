@@ -22,7 +22,7 @@ function Nav() {
                         <Hamburger toggled={isOpen} size={20} toggle={setOpen} />
                     </div>
                 </div>
-                {(isOpen && auth.user) ? (
+                {/* {(isOpen && auth.user) ? (
                     <div className="grid">
                         <>
                             <NavLink className="navbar-item" to='/bookings'><strong>Bookings</strong></NavLink>
@@ -42,7 +42,7 @@ function Nav() {
                             );
                         })}
                     </div>
-                ): null}
+                ): null} */}
                 <div className="navbar-menu">
                     <div className="navbar-end">
                         {auth.user && auth.user.hasRole("USER") ? (

@@ -7,8 +7,6 @@ import java.util.List;
 public interface BookingRepository {
     List<Booking> findBookingsByClubId(int clubId);
 
-    List<Booking> findBookingsByMemberId(int memberId);
-
     Booking findById(int bookingId);
 
     Booking add(Booking booking);

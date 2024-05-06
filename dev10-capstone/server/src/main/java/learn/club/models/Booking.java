@@ -7,7 +7,6 @@ public class Booking {
 
     private int bookingId;
     private int clubId;
-    private int memberId;
     private String facility;
     private String status;
     private LocalDate startDate;
@@ -17,10 +16,9 @@ public class Booking {
 
     public Booking() { }
 
-    public Booking(int bookingId, int clubId, int memberId, String facility, String status, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
+    public Booking(int bookingId, int clubId, String facility, String status, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
         this.bookingId = bookingId;
         this.clubId = clubId;
-        this.memberId = memberId;
         this.facility = facility;
         this.status = status;
         this.startDate = startDate;
@@ -36,10 +34,6 @@ public class Booking {
     public int getClubId() { return clubId; }
 
     public void setClubId(int clubId) { this.clubId = clubId; }
-
-    public int getMemberId() { return memberId; }
-
-    public void setMemberId(int memberId) { this.memberId = memberId; }
 
     public String getFacility() { return facility; }
 

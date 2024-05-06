@@ -1,150 +1,132 @@
-import "../../node_modules/bulma-extensions/bulma-steps/dist/js/bulma-steps.js";
+import {useState, useContext} from 'react';
+import {useNavigate} from 'react-router-dom';
+import AuthContext from "../context/AuthContext";
+import { Stepper } from 'primereact/stepper';
+import { StepperPanel } from 'primereact/stepperpanel';
+import 'primereact/resources/themes/lara-light-cyan/theme.css';
 
 function AdminClub() {
 
-  return (
-    <div className="steps" id="stepsDemo">
-    <div className="step-item is-active is-success">
-        <div className="step-marker">1</div>
-        <div className="step-details">
-        <p className="step-title">Account</p>
-        </div>
-    </div>
-    <div className="step-item">
-        <div className="step-marker">2</div>
-        <div className="step-details">
-        <p className="step-title">Profile</p>
-        </div>
-    </div>
-    <div className="step-item">
-        <div className="step-marker">3</div>
-        <div className="step-details">
-        <p className="step-title">Social</p>
-        </div>
-    </div>
-    <div className="step-item">
-        <div className="step-marker">4</div>
-        <div className="step-details">
-        <p className="step-title">Finish</p>
-        </div>
-    </div>
-    <div className="steps-content">
-        <div className="step-content has-text-centered is-active">
-        <div className="field is-horizontal">
-            <div className="field-label is-normal">
-            <label className="label">Username</label>
-            </div>
-            <div className="field-body">
-            <div className="field">
-                <div className="control">
-                <input className="input" name="username" id="username" type="text" placeholder="Username" autoFocus data-validate="require" />
+    const auth = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const [club, setClub] = useState({
+        appUserId: `${auth.user.appUserId}`,
+        name: "",
+        category: "",
+        location: "",
+        membershipFee: "",
+        description: "",
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setClub({
+            ...club,
+            [name]: value
+        });
+    }   
+
+    const items = [ {label: 'Basic Information'}, {label: 'Membership Information'}, {label: 'Describe Your Club'} ];
+
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    const [errors, setErrors] = useState([]);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const response = await fetch("http://localhost:8080/club", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${auth.user.token}`,
+            },
+            body: JSON.stringify(club),
+        });
+
+        if (response.status === 201) {
+            setErrors([]);
+            setClub({
+                appUserId: `${auth.user.appUserId}`,
+                name: "",
+                category: "",
+                location: "",
+                membershipFee: "",
+                description: "",
+            });
+            setActiveIndex(0);
+            alert("Club created successfully!");
+            navigate("/admin/members");
+        } else {
+            const data = await response.json();
+            setErrors(data.errors);
+        }
+    }
+
+    return (
+        <section className="hero is-primary is-fullheight">
+            <div className="hero-body">
+                <div className="container">
+                <div className="columns is-centered">
+                    <div className="column is-5-tablet is-4-desktop is-3-widescreen">
+                    <h1 className="title is-3" style={{"color": "white"}}>Welcome to Club!</h1>
+                    <h2 className="subtitle is-6" style={{"color": "white"}}><em>Please fill in the form to create a new club.</em></h2>
+                    <form action="" className="box" onSubmit={handleSubmit}>
+                        <Stepper className="p-stepper-vertical steps" model={items} activeIndex={activeIndex} onIndexChange={(e) => setActiveIndex(e.index)} orientation="vertical" style={{ flexBasis: '50rem' }}>
+                            <StepperPanel className="step-item" header="Basic Information">
+                                <div className="p-fluid">
+                                    <div className="p-field p-stepper-content mb-2">
+                                        <label htmlFor="name">Club Name</label>
+                                        <input id="name" type="text" name="name" value={club.name} onChange={handleInputChange} required />
+                                    </div>
+                                    <div className="p-field p-stepper-content mb-2">
+                                        <label className="mr-2" htmlFor="category">Category</label>
+                                        <select id="category" name="category" value={club.category} onChange={handleInputChange} required >
+                                            <option value="">Select a Category</option>
+                                            <option value="Fitness">Fitness</option>
+                                            <option value="Hobby">Hobby</option>
+                                            <option value="Social">Social</option>
+                                            <option value="Service">Service</option>
+                                        </select>
+                                    </div>
+                                    <div className="p-field p-stepper-content mb-2">
+                                        <label htmlFor="location">Location</label>
+                                        <input id="location" type="text" name="location" value={club.location} onChange={handleInputChange} required />
+                                    </div>
+                                </div>
+                            </StepperPanel>
+                            <StepperPanel className="step-item" header="Membership Information">
+                                <div className="p-fluid">
+                                    <div className="p-field p-stepper-content">
+                                        <label htmlFor="membershipFee">Membership Fee</label>
+                                        <input placeholder="$" id="membershipFee" type="number" name="membershipFee" value={club.membershipFee} onChange={handleInputChange} required />
+                                    </div>
+                                </div>
+                            </StepperPanel>
+                            <StepperPanel className="step-item" header="Description">
+                                <div className="p-fluid">
+                                    <div className="p-field mb-2">
+                                        <label htmlFor="description">Description</label>
+                                        <textarea className="textarea" name="description" value={club.description} onChange={handleInputChange} required />
+                                    </div>
+                                </div>
+                                <div className="p-field p-stepper-content">
+                                    <button type="submit" className="button is-primary">Create Club</button>
+                                </div>
+                            </StepperPanel>
+                        </Stepper>
+                    </form>
+                    {errors.map((error) => (
+                        <div className="notification is-danger is-light">{error}</div>
+                    ))}
+                    </div>
+                </div>
                 </div>
             </div>
-            </div>
-        </div>
-        <div className="field is-horizontal">
-            <div className="field-label is-normal">
-            <label className="label">Password</label>
-            </div>
-            <div className="field-body">
-            <div className="field">
-                <div className="control has-icon has-icon-right">
-                <input className="input" type="password" name="password" id="password" placeholder="Password" data-validate="require" />
-                </div>
-            </div>
-            </div>
-        </div>
-        <div className="field is-horizontal">
-            <div className="field-label is-normal">
-            <label className="label">Confirm password</label>
-            </div>
-            <div className="field-body">
-            <div className="field">
-                <div className="control has-icon has-icon-right">
-                <input className="input" type="password" name="password_confirm" id="password_confirm" placeholder="Confirm password" data-validate="require" />
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-        <div className="step-content has-text-centered">
-        <div className="field is-horizontal">
-            <div className="field-label is-normal">
-            <label className="label">Firstname</label>
-            </div>
-            <div className="field-body">
-            <div className="field">
-                <div className="control">
-                <input className="input" name="firstname" id="firstname" type="text" placeholder="Firstname" autoFocus data-validate="require" />
-                </div>
-            </div>
-            </div>
-        </div>
-        <div className="field is-horizontal">
-            <div className="field-label is-normal">
-            <label className="label">Last name</label>
-            </div>
-            <div className="field-body">
-            <div className="field">
-                <div className="control has-icon has-icon-right">
-                <input className="input" type="text" name="lastname" id="lastname" placeholder="Last name" data-validate="require" />
-                </div>
-            </div>
-            </div>
-        </div>
-        <div className="field is-horizontal">
-            <div className="field-label is-normal">
-            <label className="label">Email</label>
-            </div>
-            <div className="field-body">
-            <div className="field">
-                <div className="control has-icon has-icon-right">
-                <input className="input" type="email" name="email" id="email" placeholder="Email" data-validate="require" />
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-        <div className="step-content has-text-centered">
-        <div className="field is-horizontal">
-            <div className="field-label is-normal">
-            <label className="label">Facebook account</label>
-            </div>
-            <div className="field-body">
-            <div className="field">
-                <div className="control">
-                <input className="input" name="facebook" id="facebook" type="text" placeholder="Facebook account url" autoFocus data-validate="require" />
-                </div>
-            </div>
-            </div>
-        </div>
-        <div className="field is-horizontal">
-            <div className="field-label is-normal">
-            <label className="label">Twitter account</label>
-            </div>
-            <div className="field-body">
-            <div className="field">
-                <div className="control">
-                <input className="input" name="twitter" id="twitter" type="text" placeholder="Twitter account url" autoFocus data-validate="require" />
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-        <div className="step-content has-text-centered">
-        <h1 className="title is-4">Your account is now created!</h1>
-        </div>
-    </div>
-    <div className="steps-actions">
-        <div className="steps-action">
-        <a href="#" data-nav="previous" className="button is-light">Previous</a>
-        </div>
-        <div className="steps-action">
-        <a href="#" data-nav="next" className="button is-light">Next</a>
-        </div>
-    </div>
-    </div>
-  );
+        </section>
+    );
+
+  
 }
 
 export default AdminClub;

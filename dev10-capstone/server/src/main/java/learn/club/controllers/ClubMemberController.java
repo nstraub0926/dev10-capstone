@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/club-member")
 public class ClubMemberController {
@@ -15,6 +17,11 @@ public class ClubMemberController {
     private final ClubMemberService service;
 
     public ClubMemberController(ClubMemberService service) { this.service = service; }
+
+    @GetMapping("/{memberId}")
+    public List<Club> findClubsByMemberId(@PathVariable int memberId) {
+        return service.findClubsByMemberId(memberId);
+    }
 
     @GetMapping("/{clubId}/{memberId}")
     public int findClubMemberId(@PathVariable int clubId, @PathVariable int memberId) {

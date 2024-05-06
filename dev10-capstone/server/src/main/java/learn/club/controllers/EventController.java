@@ -55,7 +55,7 @@ public class EventController {
     @DeleteMapping("/{eventId}")
     public ResponseEntity<Void> delete(@PathVariable int eventId) {
         Result<Event> result = service.deleteById(eventId);
-        return new ResponseEntity<>(getStatus(result, HttpStatus.NOT_FOUND));
+        return new ResponseEntity<>(getStatus(result, HttpStatus.NO_CONTENT));
     }
 
     private HttpStatus getStatus(Result<Event> result, HttpStatus statusDefault) {

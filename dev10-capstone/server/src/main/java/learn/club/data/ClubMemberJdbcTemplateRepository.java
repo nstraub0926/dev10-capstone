@@ -1,5 +1,6 @@
 package learn.club.data;
 
+import learn.club.models.Club;
 import learn.club.models.ClubMember;
 import learn.club.models.Member;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,6 +22,15 @@ public class ClubMemberJdbcTemplateRepository implements ClubMemberRepository {
                 + " inner join club_member on `member`.member_id = club_member.member_id "
                 + " where club_member.club_id = ?;";
         return jdbcTemplate.query(sql, new MemberMapper(), clubId);
+    }
+
+    @Override
+    public List<Club> findClubsByMemberId(int memberId) {
+        final String sql = "select * "
+                + " from club "
+                + " inner join club_member on club.club_id = club_member.club_id "
+                + " where club_member.member_id = ?;";
+        return jdbcTemplate.query(sql, new ClubMapper(), memberId);
     }
 
     @Override

@@ -76,9 +76,10 @@ public class ClubJdbcTemplateRepository implements ClubRepository {
     @Override
     public Club add(Club club) {
         final String sql = "insert into club "
-                + "(`name`, category, location, membership_fee, `description`) "
-                + "values (?,?,?,?,?);";
+                + "(app_user_id, `name`, category, location, membership_fee, `description`) "
+                + "values (?,?,?,?,?,?);";
         int rowsAffected = jdbcTemplate.update(sql,
+                club.getAppUserId(),
                 club.getName(),
                 club.getCategory(),
                 club.getLocation(),

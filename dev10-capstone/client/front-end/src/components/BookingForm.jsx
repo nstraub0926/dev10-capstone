@@ -8,6 +8,7 @@ function BookingForm({bookingId, clubId, handleClose}) {
     const [booking, setBooking] = useState({
         clubId: clubId,
         facility: "",
+        status: 0,
         startDate: "",
         endDate: "",
         startTime: "",
@@ -99,7 +100,7 @@ function BookingForm({bookingId, clubId, handleClose}) {
     }
 
     function handleSubmit(evt) {
-        evt.prbookingDefault();
+        evt.preventDefault();
         save(booking)
         .catch(errors => setErrors(errors));
     }

@@ -2,11 +2,6 @@ import {useState, useEffect, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from "../context/AuthContext";
 
-function convertDate(date) {
-    const d = new Date(date);
-    return d.toLocaleDateString( "en-US", { timeZone: "UTC" } );
-}
-
 function BookingDelete({bookingId, clubId, handleDeleteClose}) {
 
     const [booking, setBooking] = useState([]);
@@ -29,7 +24,7 @@ function BookingDelete({bookingId, clubId, handleDeleteClose}) {
         }, [clubId, bookingId]);
 
     async function handleDelete(evt) {
-        evt.prbookingDefault();
+        evt.preventDefault();
         const init = {
             method: "DELETE",
             headers: {
@@ -60,6 +55,9 @@ function BookingDelete({bookingId, clubId, handleDeleteClose}) {
                         <div className="card-content">
                             <h1 className="title is-3 has-text-centered">Delete Booking</h1>
                             <p className="subtitle">Are you sure you want to delete this booking?</p>
+                            <ul>
+                                <li>Facility | Utility: {booking.facility}</li>
+                            </ul>
                         </div>
                         <footer className="modal-card-foot">
                             <p className="card-footer-item">

@@ -24,11 +24,6 @@ public class BookingController {
         return service.findBookingsByClubId(clubId);
     }
 
-    @GetMapping("/{memberId}")
-    public List<Booking> findBookingsByMemberId(@PathVariable int memberId) {
-        return service.findBookingsByMemberId(memberId);
-    }
-
     @GetMapping("/{clubId}/{bookingId}")
     public Booking findById(@PathVariable int bookingId) {
         return service.findById(bookingId);
@@ -53,7 +48,7 @@ public class BookingController {
     @DeleteMapping("/{bookingId}")
     public ResponseEntity<Void> delete(@PathVariable int bookingId) {
         Result<Booking> result = service.deleteById(bookingId);
-        return new ResponseEntity<>(getStatus(result, HttpStatus.NOT_FOUND));
+        return new ResponseEntity<>(getStatus(result, HttpStatus.NO_CONTENT));
     }
 
     private HttpStatus getStatus(Result<Booking> result, HttpStatus statusDefault) {

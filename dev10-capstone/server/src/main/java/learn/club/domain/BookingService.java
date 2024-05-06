@@ -25,10 +25,6 @@ public class BookingService {
         return repository.findBookingsByClubId(clubId);
     }
 
-    public List<Booking> findBookingsByMemberId(int memberId) {
-        return repository.findBookingsByMemberId(memberId);
-    }
-
     public Booking findById(int booking) {
         return repository.findById(booking);
     }

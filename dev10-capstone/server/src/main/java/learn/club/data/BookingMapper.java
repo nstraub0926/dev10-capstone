@@ -13,7 +13,6 @@ public class BookingMapper implements RowMapper<Booking> {
         Booking booking = new Booking();
         booking.setBookingId(resultSet.getInt("booking_id"));
         booking.setClubId(resultSet.getInt("club_id"));
-        booking.setMemberId(resultSet.getInt("member_id"));
         booking.setFacility(resultSet.getString("facility"));
         booking.setStatus(resultSet.getString("status"));
         booking.setStartDate(resultSet.getDate("start_date").toLocalDate());
