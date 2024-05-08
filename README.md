@@ -2,9 +2,9 @@
 
 ## 1. Problem Statement
 
-> Modern day club management systems are widely utilized by a variety of organizations; however, these systems generally only tackle a succinct and uniform list of requirements (as described by the needs of the type of club they are addressing). Rather than resorting to applications that only apply to a select grouping of organizations, **CLUB** will tackle and provide a robust set of features that can be used across a varietal of clubs (granting members access to events and bookings for multiple organizations, all housed within one application).
+> Modern day club management systems are widely utilized by a variety of organizations; however, these systems generally only tackle a succinct and uniform list of requirements (as described by the needs of the type of club they are addressing). Rather than resorting to applications that only apply to a select grouping of organizations, **CLUB** will tackle and provide a robust set of features that can be used across a varietal of clubs (granting members access to bookings and events from multiple organizations, all housed within one application).
 > 
-> CLUB's comprehensive management system will be required to streamline and enhance the administrative operations of a diverse range of clubs, including social clubs, sports clubs, hobby clubs, and more.
+> CLUB's comprehensive management system will be required to streamline and enhance the administrative operations of a diverse range of clubs, including social clubs, fitness clubs, hobby clubs, and more.
 >
 > The current manual processes for membership management, event scheduling, communication, and financial tracking are inefficient, leading to inconsistencies, errors, and delays.
 >
@@ -35,8 +35,8 @@
 
 ## 4. High Level Requirement
 
-> - Member signup (authenticated).
-> - Member login (authnticated).
+> - Member signup (permitAll).
+> - Member login (authenticated).
 > - Browse for Clubs to join (MEMBER).
 > - View member profile (MEMBER).
 > - View all RSVP'd events (MEMBER).
@@ -57,7 +57,7 @@
 
 > ### Member signup (permitAll)
 > New users will be directed to the signup page upon accessing the site. They will be asked to create an account and signup using an email and password.
-> ### Member login (authnticated)
+> ### Member login (authenticated)
 > For returning users, they will be directed to the login page. They will be asked for their email and password to login to the site.
 > ### Browse for Clubs to join (MEMBER)
 > A user is brand new to the application and is looking for clubs to join. This view will have a list of available clubs to join and will link said member to the club, giving them access to all events and bookings for that particular club.
@@ -86,4 +86,4 @@
 > ### Update a booking (ADMIN)
 > If a booking field needs to be updated, these changes will be made to the backend, such that club members will always see the most updated version of the booking at hand.
 > ### Delete a booking (ADMIN)
-> If a booking is not longer available for use, the club admin can remove said booking from the calendar and club members will no longer have the ability to checkout that good or service. This will also update previously made bookings.
+> If a booking is no longer available for use, the club admin can remove said booking from the calendar and club members will no longer have the ability to checkout that good or service. This will also update previously made bookings.
