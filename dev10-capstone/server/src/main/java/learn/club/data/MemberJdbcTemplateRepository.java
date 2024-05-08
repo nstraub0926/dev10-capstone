@@ -27,7 +27,16 @@ public class MemberJdbcTemplateRepository implements MemberRepository {
     }
 
     @Override
-    public Member findById(int appUserId) {
+    public Member findById(int memberId) {
+        final String sql = "select member_id, app_user_id, `name`, phone, address, membership_status, membership_type, join_date, expiration_date"
+                + " from `member`"
+                + " where member_id = ?;";
+        return jdbcTemplate.query(sql, new MemberMapper(), memberId)
+                .stream().findFirst().orElse(null);
+    }
+
+    @Override
+    public Member findByAppUserId(int appUserId) {
         final String sql = "select member_id, app_user_id, `name`, phone, address, membership_status, membership_type, join_date, expiration_date"
                 + " from `member`"
                 + " where app_user_id = ?;";

@@ -44,9 +44,11 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET,
                         "/club/*/booking").permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/member", "/member/*").permitAll()
+                        "/member", "/member/*", "/member/app_user/*").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/club-member", "/club-member/*", "/club-member/*/*").permitAll()
+                .antMatchers(HttpMethod.GET,
+                        "/rsvp", "/rsvp/*").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/club/event/*", "/club/event/*/*").permitAll()
                 .antMatchers(HttpMethod.GET,
@@ -56,15 +58,17 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST,
                         "/club").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST,
-                        "/member").hasAnyAuthority("ADMIN")
+                        "/member").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,
-                        "/club-member").hasAnyAuthority("ADMIN")
+                        "/club-member").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST,
+                        "/rsvp").hasAnyAuthority("USER")
                 .antMatchers(HttpMethod.POST,
                         "/club/event").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST,
                         "/club/booking").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.PUT,
-                        "/member/*").hasAnyAuthority("ADMIN")
+                        "/member/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT,
                         "/club/event/*").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.PUT,

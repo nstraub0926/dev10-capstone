@@ -26,42 +26,33 @@ function convertTime(time) {
     return timeValue;
 }
 
-export default function EventCard({ event }) {
+export default function RsvpCard({ item }) {
+    console.log(item);
     return (
         <section className="section">
             <div className="container">
                 <div className="columns">
                     <div className="column">
                         <div className="card is-horizontal shadow-md is-cursor-pointer transform is-duration-500 hover-shadow-xl hover-translate-y is-showdow-2xl is-shadow-none">
-                            <div className="card-image">
-                                <figure className="image">
-                                    <img src={event.imgUrl ? event.imgUrl : "https://bulma.io/images/placeholders/1280x960.png"}
-                                        alt="Event image"/>
-                                </figure>
-                            </div>
                             <div className="card-content p-0 is-flex is-flex-direction-column">
                                 <div className="content p-5 has-text-grey-light">
-                                    <h3>{event.title}</h3>
-                                <p className="is-size-6 has-text-weight-normal">{event.description}</p>
+                                    <h3>{item.title || item.facility}</h3>
+                                <p className="is-size-6 has-text-weight-normal">{item.description}</p>
                                 </div>
                                 <div className="content p-5 has-background-success-light">
                                     <div className="columns">
                                         <div className="column">
                                             <div className="is-size-6">
-                                                <span className="has-text-weight-semibold">{event.location}</span>
+                                                <span className="has-text-weight-semibold">{item.startDate ? convertDate(item.startDate) : convertDate(item.date)}</span>
                                             </div>
                                             <div className="is-size-6">
-                                                <span className="has-text-primary-dark">{convertDate(event.date)}</span> 
+                                                <span className="has-text-primary-dark">{item.endDate ? convertDate(item.endDate) : null}</span> 
                                             </div>
                                             <div className="is-size-6">
-                                                <span className="has-text-primary-dark">{convertTime(event.startTime)} - {convertTime(event.endTime)}</span>
+                                                <span className="has-text-primary-dark">{convertTime(item.startTime)} - {convertTime(item.endTime)}</span>
                                             </div>
-                                        </div>
-                                        <div className="column">
-                                            <button style={{"backgroundColor": "#305140", "color": "white"}} className="button is-medium is-fullwidth has-text-weight-semibold"><em>RSVP</em></button>
                                         </div>
                                     </div>
-                                    <p className="is-size-7">Hosted by club...</p>
                                 </div>
                             </div>
                         </div>

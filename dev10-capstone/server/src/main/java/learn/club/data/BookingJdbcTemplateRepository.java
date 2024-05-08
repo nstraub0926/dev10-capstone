@@ -15,7 +15,7 @@ public class BookingJdbcTemplateRepository implements BookingRepository {
 
     @Override
     public List<Booking> findBookingsByClubId(int clubId) {
-        final String sql = "select booking_id, club_id, member_id, facility, `status`, start_date, end_date, start_time, end_time "
+        final String sql = "select booking_id, club_id, facility, `status`, start_date, end_date, start_time, end_time "
                 + "from booking "
                 + "where club_id = ?";
         return jdbcTemplate.query(sql, new BookingMapper(), clubId);

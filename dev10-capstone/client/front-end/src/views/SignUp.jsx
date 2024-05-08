@@ -89,7 +89,6 @@ export default function SignUp() {
                 </div>
               </div>
               <div className="field">
-                {/* Includes for/id attributes for basic HTML accessibility ♿. */}
                 <label className="label" htmlFor="username">Username</label>
                   <div className="control has-icons-left">
                     <input

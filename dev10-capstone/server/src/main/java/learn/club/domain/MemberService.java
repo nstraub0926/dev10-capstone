@@ -26,7 +26,9 @@ public class MemberService {
         return repository.findAll();
     }
 
-    public Member findById(int appUserId) { return repository.findById(appUserId); }
+    public Member findById(int memberId) { return repository.findById(memberId); }
+
+    public Member findByAppUserId(int appUserId) { return repository.findByAppUserId(appUserId); }
 
     public Result<Member> add(Member member) {
         Result<Member> result = validate(member);

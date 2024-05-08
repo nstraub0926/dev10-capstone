@@ -8,6 +8,7 @@ import AdminMember from './views/AdminMember'
 import AuthContext from './context/AuthContext';
 import Booking from './views/Booking'
 import Club from './views/Club'
+import Contact from './views/Contact';
 import Event from './views/Event'
 import Home from './views/Home'
 import Login from './views/Login'
@@ -78,7 +79,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/about" element={<h1>About</h1>} />
-          <Route path="/contact" element={<h1>Contact</h1>} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/clubs" element={<Club />} />
           <Route path="/events" element={<Event />} />

@@ -18,14 +18,14 @@ public class ClubJdbcTemplateRepository implements ClubRepository {
 
     @Override
     public List<Club> findAll() {
-        final String sql = "select club_id, `name`, category, location, membership_fee, `description`"
+        final String sql = "select club_id, app_user_id, `name`, category, location, membership_fee, `description`"
                 + " from club;";
         return jdbcTemplate.query(sql, new ClubMapper());
     }
 
     @Override
     public Club findById(int clubId) {
-        final String sql = "select club_id, `name`, category, location, membership_fee, `description`"
+        final String sql = "select club_id, app_user_id, `name`, category, location, membership_fee, `description`"
                 + " from club"
                 + " where club_id = ?;";
         return jdbcTemplate.query(sql, new ClubMapper(), clubId)
@@ -34,7 +34,7 @@ public class ClubJdbcTemplateRepository implements ClubRepository {
 
     @Override
     public List<Club> filterClubsByInput(String input) {
-        final String sql = "select club_id, `name`, category, location, membership_fee, `description`"
+        final String sql = "select club_id, app_user_id, `name`, category, location, membership_fee, `description`"
                 + " from club"
                 + " where `name` like ?;";
         return jdbcTemplate.query(sql, new ClubMapper(), "%" + input + "%");
