@@ -59,8 +59,29 @@ export default function Booking() {
   }, []);
 
   function handleEventClick(clickInfo) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove()
+    if (confirm(`Confirm RSVP for '${clickInfo.event.title}'`)) {
+      const booking = bookings.find((booking) => booking.bookingId === Number(clickInfo.event.id));
+      const init = {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${auth.user.token}`,
+          },
+          body: JSON.stringify({
+              memberId: member.memberId,
+              eventId: null,
+              bookingId: booking.bookingId,
+          }),
+      };
+      fetch(`http://localhost:8080/rsvp`, init)
+      .then((response) => {
+          if (response.status !== 201) {
+              return Promise.reject("Failed to RSVP");
+          }
+          alert(`Successfully RSVP'd to ${booking.facility}!`);
+          return response.json();
+      })
+      .catch(console.log)
     }
   }
 

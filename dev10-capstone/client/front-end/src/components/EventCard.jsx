@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 import "../css/event-card.css";
 
 function convertDate(date) {
@@ -26,7 +28,35 @@ function convertTime(time) {
     return timeValue;
 }
 
-export default function EventCard({ event }) {
+function handleClick(auth, event, member) {
+    const init = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${auth.user.token}`,
+        },
+        body: JSON.stringify({
+            memberId: member.memberId,
+            eventId: event.eventId,
+            bookingId: null,
+        }),
+    };
+
+    fetch(`http://localhost:8080/rsvp`, init)
+    .then((response) => {
+        if (response.status !== 201) {
+            return Promise.reject("Failed to RSVP");
+        }
+        alert(`Successfully RSVP'd to ${event.title}!`);
+        return response.json();
+    })
+    .catch(console.log)
+}
+
+export default function EventCard({ event, member}) {
+
+    const auth = useContext(AuthContext);
+
     return (
         <section className="section">
             <div className="container">
@@ -58,10 +88,9 @@ export default function EventCard({ event }) {
                                             </div>
                                         </div>
                                         <div className="column">
-                                            <button style={{"backgroundColor": "#305140", "color": "white"}} className="button is-medium is-fullwidth has-text-weight-semibold"><em>RSVP</em></button>
+                                            <button style={{"backgroundColor": "#305140", "color": "white"}} className="button is-medium is-fullwidth has-text-weight-semibold" onClick={() => handleClick(auth, event, member)}><em>RSVP</em></button>
                                         </div>
                                     </div>
-                                    <p className="is-size-7">Hosted by club...</p>
                                 </div>
                             </div>
                         </div>

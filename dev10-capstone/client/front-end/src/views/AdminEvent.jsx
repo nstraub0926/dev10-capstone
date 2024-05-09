@@ -35,7 +35,7 @@ function AdminEvent() {
         fetch(`http://localhost:8080/club/app_user/${auth.user.appUserId}`, {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${auth.user.token}`,
+                "Authorization": `Bearer ${auth.user.token}`,
             },
         })
         .then((response) => {

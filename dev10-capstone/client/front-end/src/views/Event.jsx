@@ -54,7 +54,7 @@ function Event() {
                         <div className="cell">
                             {events.map((event, index) => {
                                 return (
-                                    <EventCard key={index} event={event} />
+                                    <EventCard key={index} event={event} member={member}/>
                                 );
                             })}
                         </div>

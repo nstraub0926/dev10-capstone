@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { jwtDecode } from "jwt-decode";
+import AboutUs from './views/AboutUs';
 import AdminBooking from './views/AdminBooking';
 import AdminClub from './views/AdminClub'
 import AdminEvent from './views/AdminEvent';
@@ -78,7 +79,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/about" element={<h1>About</h1>} />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/clubs" element={<Club />} />

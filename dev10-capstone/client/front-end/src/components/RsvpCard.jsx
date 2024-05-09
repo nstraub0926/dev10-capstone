@@ -43,10 +43,7 @@ export default function RsvpCard({ item }) {
                                     <div className="columns">
                                         <div className="column">
                                             <div className="is-size-6">
-                                                <span className="has-text-weight-semibold">{item.startDate ? convertDate(item.startDate) : convertDate(item.date)}</span>
-                                            </div>
-                                            <div className="is-size-6">
-                                                <span className="has-text-primary-dark">{item.endDate ? convertDate(item.endDate) : null}</span> 
+                                                <span className="has-text-weight-semibold">{item.startDate ? convertDate(item.startDate) : convertDate(item.date)} {item.endDate !==  item.startDate ? " - " + convertDate(item.endDate) : null}</span>
                                             </div>
                                             <div className="is-size-6">
                                                 <span className="has-text-primary-dark">{convertTime(item.startTime)} - {convertTime(item.endTime)}</span>
