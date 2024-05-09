@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Calendar } from "primereact/calendar";
 import AuthContext from "../context/AuthContext";
 
 function MemberForm({memberId, handleClose}) {
@@ -173,18 +172,6 @@ function MemberForm({memberId, handleClose}) {
                                             <option value="VIP">VIP</option>
                                         </select>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="columns is-centered">
-                                <div className="field m-1">
-                                    <label className="label" htmlFor="joinDate">Join Date</label>
-                                    <Calendar id="joinDate" name="joinDate" className="control" required
-                                        onChange={handleChange} value={member.joinDate} />
-                                </div>
-                                <div className="field m-1">
-                                    <label className="label" htmlFor="expirationDate">Expiration Date</label>
-                                    <Calendar id="expirationDate" name="expirationDate" className="control" required
-                                        onChange={handleChange} value={member.expirationDate} />
                                 </div>
                             </div>
                             <footer className="modal-card-foot">
