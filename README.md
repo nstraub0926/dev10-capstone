@@ -40,5 +40,5 @@ Steps to setup and run the frontend of the application:
 
 Steps to run the backend of the application:
 1. In IntelliJ, open the server Maven project
-2. Instantiate DB_USERNAME & DB_PASSWORD environment variables
+2. Instantiate `DB_USERNAME` & `DB_PASSWORD` environment variables
 3. Execute App class
